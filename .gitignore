@@ -1,0 +1,4 @@
+blogs/
+__pycache__/
+.mypy_cache/
+*.txt
