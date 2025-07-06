@@ -1,4 +1,4 @@
-from base import BaseWriteBlog, BaseReadBlog, BaseUpdateBlog
+from base import BaseWriteBlog, BaseReadBlog, BaseUpdateBlog, BaseDeleteBlog
 from datetime import datetime
 from typing import List, Any
 import logging
@@ -25,6 +25,7 @@ class WriteBlog(BaseWriteBlog):
             lines: List[str] = ['Title: %s'%self.title, 'Author: %s'%self.author, 'Body: %s'%self.content, 'Date/Time: %s'%self.date_created]
             for line in lines:
                 file_object.write('%s\n'%line)
+        return f'{self.title} successfully created and saved.\n'
                
         
 class ReadBlog(BaseReadBlog):
@@ -34,10 +35,10 @@ class ReadBlog(BaseReadBlog):
         file = input('\nEnter File name with extension: ')
         try:
             with open(file, 'r+') as file_object:
-                logging.info('SUCCESS:Blog read successful.\n')
+                logging.info('Blog read successful.\n')
                 return file_object.read()
         except FileNotFoundError:
-            return logging.warning('WARNING:The requested file wasn\'t found on our system.')
+            return f'\nThe requested file {file} wasn\'t found on our system.'
         
 
 class UpdateBlog(BaseUpdateBlog):
@@ -54,11 +55,26 @@ class UpdateBlog(BaseUpdateBlog):
                 with open(self.file, 'a') as file_object:
                     post = input('Enter post to update blog: ')
                     file_object.writelines(f'\n{self.date_updated}\n{post}\n')
-                    return logging.info('SUCCESS:Blog update successful')
+                    return 'Blog update successful'
             else:
-                return logging.warning('WARNING:Enter the correct file name')
+                return 'Enter the correct file name'
         else:
-            return logging.warning('WARNING:File path does not exist.')
+            return 'File %s does not exist.' % self.file
+        
+    
+class DeleteBlog(BaseDeleteBlog):
+    """Delete a blog"""
+    def __init__(self, file):
+        self.file = file
+    
+    def delete_blog(self):
+        try:
+            os.remove(self.file)
+        except FileNotFoundError:
+            return 'The requested blog - %s does not exist.' % self.file
+        else:
+            logging.info('%s successfully deleted.' % self.file)
+            return ''
 
         
            

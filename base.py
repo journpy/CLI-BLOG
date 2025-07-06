@@ -34,6 +34,15 @@ class BaseUpdateBlog(ABC):
         """Update blog post."""
         pass
 
+class BaseDeleteBlog(ABC):
+    def __init__(self, file: str):
+        self.file = file
+
+    @abstractmethod
+    def delete_blog(self):
+        """Delete a Blog file"""
+        pass
+
 
 
 
