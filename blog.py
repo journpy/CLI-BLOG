@@ -10,11 +10,7 @@ logging.basicConfig(level='INFO')
 class WriteBlog(BaseWriteBlog):
     """Model a Blog Post"""
     def __init__(self, title: str, author: str, content: str):
-        self.title = title
-        self.author = author
-        self.content = content
         self.date_created: str = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
-        #self.comments: str = ''
         self.DIR: str = 'blogs'
         self.EXT: str = '.txt'
         super().__init__(title, author, content)
@@ -44,7 +40,6 @@ class ReadBlog(BaseReadBlog):
 class UpdateBlog(BaseUpdateBlog):
     """Update a Blog."""
     def __init__(self, file):
-        self.file = file
         self.date_updated = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
         super().__init__(file)
 
@@ -65,7 +60,7 @@ class UpdateBlog(BaseUpdateBlog):
 class DeleteBlog(BaseDeleteBlog):
     """Delete a blog"""
     def __init__(self, file):
-        self.file = file
+        super().__init__(file)
     
     def delete_blog(self):
         try:

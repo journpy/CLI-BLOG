@@ -27,7 +27,6 @@ class BaseReadBlog(ABC):
 class BaseUpdateBlog(ABC):
     def __init__(self, file: str):
         self.file = file
-        self.date_updated = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
 
     @abstractmethod
     def update_blog(self):
