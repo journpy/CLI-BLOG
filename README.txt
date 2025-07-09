@@ -1,0 +1,1 @@
+This is a Command Line Interface Blog Draft Manager written in Python for my students who are taking Python courses. This program can store drafts in files, retrieve, update and delete those files from the Command Line.
